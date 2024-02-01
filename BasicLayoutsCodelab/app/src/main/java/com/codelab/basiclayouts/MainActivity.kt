@@ -139,10 +139,10 @@ fun FavoriteCollectionCard(
                 contentScale = ContentScale.Crop,
                 modifier = modifier.size(80.dp)
             )
-            Spacer(modifier = modifier.width(8.dp))
             Text(
                 text = stringResource(favoriteCollectionTitle),
-                style = MaterialTheme.typography.titleMedium
+                style = MaterialTheme.typography.titleMedium,
+                modifier = Modifier.padding(horizontal = 16.dp)
             )
         }
     }
