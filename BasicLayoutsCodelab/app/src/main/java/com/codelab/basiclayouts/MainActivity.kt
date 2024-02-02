@@ -23,7 +23,9 @@ import androidx.activity.compose.setContent
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -39,6 +41,8 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Icon
@@ -95,14 +99,17 @@ fun SearchBar(
 // Step: Align your body - Alignment
 @Composable
 fun AlignYourBodyElement(
+    @DrawableRes drawable: Int,
+    @StringRes title: Int,
     modifier: Modifier = Modifier
+
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier
     ) {
         Image(
-            painter = painterResource(id = R.drawable.ab1_inversions),
+            painter = painterResource(id = drawable),
             contentDescription = null,
             contentScale = ContentScale.Crop,
             modifier = modifier
@@ -110,7 +117,7 @@ fun AlignYourBodyElement(
                 .clip(CircleShape)
         )
         Text(
-            text = stringResource(id = R.string.ab1_inversions),
+            text = stringResource(id = title),
             style = MaterialTheme.typography.bodyMedium,
             modifier = modifier.paddingFromBaseline(top = 24.dp, bottom = 8.dp)
         )
@@ -153,6 +160,15 @@ fun FavoriteCollectionCard(
 fun AlignYourBodyRow(
     modifier: Modifier = Modifier
 ) {
+    LazyRow(
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        contentPadding = PaddingValues(horizontal = 16.dp),
+        modifier = modifier
+    ) {
+        items(alignYourBodyData) { item ->
+            AlignYourBodyElement(item.drawable, item.text)
+        }
+    }
 }
 
 // Step: Favorite collections grid - LazyGrid
@@ -241,6 +257,8 @@ fun SearchBarPreview() {
 fun AlignYourBodyElementPreview() {
     MySootheTheme {
         AlignYourBodyElement(
+            drawable = R.drawable.ab1_inversions,
+            title = R.string.ab1_inversions,
             modifier = Modifier.padding(8.dp)
         )
     }
